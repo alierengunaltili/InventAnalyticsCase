@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "ts-node-dev src/index.ts"
+    "dev": "ts-node-dev src/index.ts",
+    "migrate": "NODE_ENV=development npx sequelize-cli db:migrate --config config/config.js"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +26,7 @@
     "@types/node": "^22.9.1",
     "@types/pg": "^8.11.10",
     "@types/sequelize": "^4.28.20",
+    "sequelize-cli": "^6.6.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.6.3"
   }
