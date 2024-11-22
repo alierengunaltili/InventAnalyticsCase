@@ -1,0 +1,8 @@
+const path = require('path');
+
+module.exports = {
+  config: path.resolve('src', 'config', 'config.js'), // Adjust to point to your config.js
+  modelsPath: path.resolve('src', 'models', 'entities'), // Path to your TypeScript models
+  migrationsPath: path.resolve('src', 'migrations'),
+  seedersPath: path.resolve('src', 'seeders'),
+};
