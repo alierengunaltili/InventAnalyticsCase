@@ -1,6 +1,6 @@
 import express, { Express } from 'express';
 import { UserRoute } from '@/routes/userRoute';
-
+import { BookRoute } from '@/routes/bookRoute';
 export class App {
   public app: Express;
 
@@ -23,5 +23,6 @@ export class App {
    */
   private registerRoutes(): void {
     this.app.use('/users', new UserRoute().router);
+    this.app.use('/books', new BookRoute().router);
   }
 }

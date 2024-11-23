@@ -23,6 +23,16 @@ Book.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    score: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: -1,
+    },
+    ownerCount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
     currentOwnerId: {
       type: DataTypes.INTEGER,
       allowNull: true,

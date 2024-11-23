@@ -1,11 +1,14 @@
 import { UserGetDTO } from '@/models/dtos/userDTO';
 import { UserRepository } from '@/repositories/userRepository';
-
+import { BookService } from '@/services/bookService';
+import { BookGetDTO } from '@/models/dtos/bookDTO';
 export class UserService {
   private userRepository: UserRepository;
+  private bookService: BookService;
 
   constructor() {
     this.userRepository = new UserRepository();
+    this.bookService = new BookService();
   }
 
   async createUser(name: string): Promise<UserGetDTO> {
@@ -32,5 +35,9 @@ export class UserService {
 
   async deleteUser(id: number): Promise<boolean> {
     return this.userRepository.deleteUser(id);
+  }
+
+  async borrowBook(userId: number, bookId: number): Promise<BookGetDTO | null> {
+    return this.bookService.borrowBook(userId, bookId);
   }
 }

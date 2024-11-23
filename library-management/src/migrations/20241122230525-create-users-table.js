@@ -37,6 +37,16 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      score: {
+        type: Sequelize.DOUBLE,
+        allowNull: false,
+        defaultValue: -1,
+      },
+      ownerCount: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
       currentOwnerId: {
         type: Sequelize.INTEGER,
         allowNull: true,
