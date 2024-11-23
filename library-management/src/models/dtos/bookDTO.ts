@@ -15,7 +15,7 @@ export interface UserBooksDTO{
 }
 export interface PastBookDTO {
     name: string;
-    score: number;
+    userScore: number;
 }
 
 export interface PresentBookDTO {
