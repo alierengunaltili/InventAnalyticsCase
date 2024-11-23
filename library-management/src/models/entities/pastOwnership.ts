@@ -19,7 +19,7 @@ PastOwnership.init(
         key: 'id',
       },
     },
-    score: {
+    userScore: {
       type: DataTypes.INTEGER,
     },
   },

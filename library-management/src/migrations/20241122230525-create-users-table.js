@@ -94,7 +94,7 @@ module.exports = {
         onUpdate: 'CASCADE', // Update if book ID changes
         onDelete: 'CASCADE', // Delete ownership if book is deleted
       },
-      score: {
+      userScore: {
         type: Sequelize.DOUBLE,
         allowNull: false,
       },
