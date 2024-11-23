@@ -19,6 +19,9 @@ PastOwnership.init(
         key: 'id',
       },
     },
+    score: {
+      type: DataTypes.INTEGER,
+    },
   },
   {
     sequelize,

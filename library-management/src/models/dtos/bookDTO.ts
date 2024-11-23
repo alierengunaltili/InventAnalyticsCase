@@ -9,6 +9,10 @@ export interface SingleBookGetDTO extends BookGetDTO {
     score: number;
 }
 
+export interface UserBooksDTO{
+    pastBooks: PastBookDTO[];
+    presentBooks: PresentBookDTO[];
+}
 export interface PastBookDTO {
     name: string;
     score: number;

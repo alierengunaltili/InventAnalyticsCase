@@ -1,4 +1,4 @@
-import { PastBookDTO, PresentBookDTO } from "./bookDTO";
+import { UserBooksDTO } from "./bookDTO";
 
 export interface UserGetDTO {
     id: number;
@@ -8,6 +8,5 @@ export interface UserGetDTO {
 export interface SingleUserGetDTO {
     id: number;
     name: string;
-    pastOwnedBooks: PastBookDTO[];
-    presentBooks: PresentBookDTO[];
+    books: UserBooksDTO;
 }

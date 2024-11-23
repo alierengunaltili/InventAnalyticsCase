@@ -34,8 +34,8 @@ export class BookController {
             const bookId: number = parseInt(req.params.bookId);
             const book = await this.bookService.getBook(bookId);
             res.status(200).json(book);
-        } catch (error) {
-            res.status(500).json({ error: 'Internal server error' });
+        } catch (error : any) {
+            res.status(500).json({ error: error.message });
         }
     }
 

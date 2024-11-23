@@ -46,11 +46,17 @@ export class BookRepository {
                     if(book.currentOwnerId !== userId){
                         throw new Error(`Book not borrowed by user ${userId}`);
                     }
+                    if(book.score === -1){
+                        book.score = score;
+                        book.ownerCount = 1;
+                    }
+                    else{
+                        var totalScore = book.score * book.ownerCount;
+                        book.ownerCount = book.ownerCount + 1;
+                        totalScore = totalScore + score;
+                        book.score = totalScore / book.ownerCount;    
+                    }
                     book.currentOwnerId = null;
-                    var totalScore = book.score * book.ownerCount;
-                    book.ownerCount = book.ownerCount + 1;
-                    totalScore = totalScore + score;
-                    book.score = totalScore / book.ownerCount;
                     await book.save();
                     return book;
                 }

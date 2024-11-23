@@ -2,6 +2,7 @@ import User from '@/models/entities/user';
 import { safeExecute } from '@/utils/repositoryErrorHandler';
 import sequelize from '@/config/database';
 import Book from '@/models/entities/book';
+import PastOwnership from '@/models/entities/pastOwnership';
 
 export class UserRepository {
 
@@ -58,7 +59,7 @@ export class UserRepository {
           where: { id: userId },
           include: [
             { model: Book, as: 'presentBooks' }, // One-to-Many
-            { model: Book, as: 'pastOwnedBooks' }, // Many-to-Many
+            { model: PastOwnership, as: 'pastOwnedBooks' }, // Many-to-Many
           ],
         });
         if(user){

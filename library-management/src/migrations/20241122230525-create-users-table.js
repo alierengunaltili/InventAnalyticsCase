@@ -94,6 +94,10 @@ module.exports = {
         onUpdate: 'CASCADE', // Update if book ID changes
         onDelete: 'CASCADE', // Delete ownership if book is deleted
       },
+      score: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
