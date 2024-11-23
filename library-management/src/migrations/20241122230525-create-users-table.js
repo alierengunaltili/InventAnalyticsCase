@@ -95,7 +95,7 @@ module.exports = {
         onDelete: 'CASCADE', // Delete ownership if book is deleted
       },
       score: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DOUBLE,
         allowNull: false,
       },
       createdAt: {
