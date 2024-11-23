@@ -23,9 +23,9 @@ export class UserService {
   async findUserById(id: number): Promise<SingleUserGetDTO | any> {
     const user = await this.userRepository.findUserById(id);
     if (!user) return null;
-    var result: SingleUserGetDTO = { id: user.id, name: user.name, books: { presentBooks: [], pastBooks: [] } };
-    result.books.presentBooks = user.presentBooks.map((book: any) => ({ name: book.name }));
-    result.books.pastBooks = user.pastOwnedBooks.map((book: any) => ({ name: book.name, score: book.score }));
+    var result: SingleUserGetDTO = { id: user.id, name: user.name, books: { present: [], past: [] } };
+    result.books.present = user.presentBooks.map((book: any) => ({ name: book.name }));
+    result.books.past = user.pastOwnedBooks.map((book: any) => ({ name: book.name, score: book.score }));
     return result;
   }
 

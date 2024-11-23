@@ -10,8 +10,8 @@ export interface SingleBookGetDTO extends BookGetDTO {
 }
 
 export interface UserBooksDTO{
-    pastBooks: PastBookDTO[];
-    presentBooks: PresentBookDTO[];
+    past: PastBookDTO[];
+    present: PresentBookDTO[];
 }
 export interface PastBookDTO {
     name: string;

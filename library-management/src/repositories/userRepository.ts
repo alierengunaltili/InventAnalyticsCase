@@ -16,7 +16,7 @@ export class UserRepository {
         const user = await User.findOne({
           where: { id: id },
           include: [
-            { model: Book, as: 'pastOwnedBooks' },
+            { model: Book, as: 'pastOwnedBooks', through: {attributes: ['score']} },
             { model: Book , as: 'presentBooks' }, 
           ],
           transaction: transaction,
@@ -59,7 +59,7 @@ export class UserRepository {
           where: { id: userId },
           include: [
             { model: Book, as: 'presentBooks' }, // One-to-Many
-            { model: PastOwnership, as: 'pastOwnedBooks' }, // Many-to-Many
+            { model: Book, as: 'pastOwnedBooks', through: {attributes: ['score']} }, // Many-to-Many
           ],
         });
         if(user){
@@ -79,7 +79,7 @@ export class UserRepository {
         return user;
     }
     catch(error){
-      return null;
+      throw error;
     }
   }
 }

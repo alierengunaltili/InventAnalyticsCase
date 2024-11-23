@@ -1,6 +1,7 @@
 import User from './entities/user';
 import Book from './entities/book';
 import sequelize from '@config/database';
+import PastOwnership from './entities/pastOwnership';
 
 const models = {
   User,
@@ -15,6 +16,10 @@ function isBookModel(model: any): model is typeof Book {
   return model === Book;
 }
 
+function isPastOwnershipModel(model: any): model is typeof PastOwnership {
+  return model === PastOwnership;
+}
+
 // Step 1: Initialize all models
 Object.values(models).forEach((model) => {
   console.log(`Initializing model: ${model.name}`); // Debug: Log model name
@@ -23,7 +28,7 @@ Object.values(models).forEach((model) => {
     model.init(User.getAttributes(), { sequelize });
   } else if (isBookModel(model)) {
     model.init(Book.getAttributes(), { sequelize });
-  }
+  } 
 });
 
 // Step 2: Register associations
