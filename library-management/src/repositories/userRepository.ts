@@ -59,7 +59,7 @@ export class UserRepository {
           where: { id: userId },
           include: [
             { model: Book, as: 'presentBooks' }, // One-to-Many
-            { model: Book, as: 'pastOwnedBooks', through: {attributes: ['score']} }, // Many-to-Many
+            { model: Book, as: 'pastOwnedBooks', through: {attributes: ['userScore']} }, // Many-to-Many
           ],
         });
         if(user){
