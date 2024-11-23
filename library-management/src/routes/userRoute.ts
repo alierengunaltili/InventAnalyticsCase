@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { Request, Response } from 'express';
 import { UserController } from '@/controllers/userController';
 
 export class UserRoute {
@@ -14,6 +13,7 @@ export class UserRoute {
 
   private registerRoutes(): void {
     this.router.post('/', (req, res) => this.userController.createUser(req, res));
+    this.router.get('/', (req, res) => this.userController.getAllUsers(req, res));
   }
 }
 

@@ -1,4 +1,3 @@
-import { Op } from 'sequelize';
 import User from '@/models/entities/user';
 import { safeExecute } from '@/utils/repositoryErrorHandler';
 export class UserRepository {
@@ -11,11 +10,8 @@ export class UserRepository {
     return safeExecute(() => User.findByPk(id));
   }
 
-  async findAllUsers(filter?: string): Promise<User[]> {
-    const whereClause = filter
-      ? { name: { [Op.like]: `%${filter}%` } }
-      : undefined;
-    return safeExecute(() => User.findAll({ where: whereClause }));
+  async findAllUsers(): Promise<User[]> {
+    return safeExecute(() => User.findAll());
   }
 
   async updateUser(id: number, newName: string): Promise<User | null> {

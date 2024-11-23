@@ -19,8 +19,8 @@ export class UserService {
     return { id: user.id, name: user.name }; // Return DTO
   }
 
-  async findAllUsers(filter?: string): Promise<UserGetDTO[]> {
-    const users = await this.userRepository.findAllUsers(filter);
+  async findAllUsers(): Promise<UserGetDTO[]> {
+    const users = await this.userRepository.findAllUsers();
     return users.map((user) => ({ id: user.id, name: user.name })); // Return DTOs
   }
 

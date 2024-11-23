@@ -44,8 +44,7 @@ export class UserController {
 
   async getAllUsers(req: Request, res: Response): Promise<void> {
     try {
-      const filter: string | undefined = req.query.filter as string;
-      const users = await this.userService.findAllUsers(filter);
+      const users = await this.userService.findAllUsers();
       res.status(200).json(users);
     } catch (error) {
       console.error('Error in getAllUsers:', error);

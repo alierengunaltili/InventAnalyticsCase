@@ -14,8 +14,8 @@ export class App {
    * Initialize middlewares
    */
   private initializeMiddlewares(): void {
-    this.app.use(express.json()); // Parse JSON request bodies
-    this.app.use(express.urlencoded({ extended: true })); // Parse URL-encoded request bodies
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
   }
 
   /**
