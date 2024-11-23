@@ -1,9 +1,12 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '@config/database';
+import Book from '@/models/entities/book';
 
 class User extends Model {
   public id!: number;
   public name!: string;
+  public presentBooks!: Book[];
+  public pastOwnedBooks!: Book[];
 
   static associate(models: any) {
     this.hasMany(models.Book, { foreignKey: 'currentOwnerId', as: 'presentBooks' });

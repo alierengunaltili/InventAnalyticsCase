@@ -7,11 +7,22 @@ const models = {
   Book,
 };
 
+function isUserModel(model: any): model is typeof User {
+  return model === User;
+}
+
+function isBookModel(model: any): model is typeof Book {
+  return model === Book;
+}
+
 // Step 1: Initialize all models
 Object.values(models).forEach((model) => {
   console.log(`Initializing model: ${model.name}`); // Debug: Log model name
-  if (model.init) {
-    model.init(model.getAttributes() || {}, { sequelize });
+
+  if (isUserModel(model)) {
+    model.init(User.getAttributes(), { sequelize });
+  } else if (isBookModel(model)) {
+    model.init(Book.getAttributes(), { sequelize });
   }
 });
 

@@ -1,14 +1,18 @@
-import { UserGetDTO } from '@/models/dtos/userDTO';
+import { SingleUserGetDTO, UserGetDTO } from '@/models/dtos/userDTO';
 import { UserRepository } from '@/repositories/userRepository';
 import { BookService } from '@/services/bookService';
 import { BookGetDTO } from '@/models/dtos/bookDTO';
+import { PastOwnershipService } from './pastOwnershipService';
+import sequelize from '@/config/database';
 export class UserService {
   private userRepository: UserRepository;
   private bookService: BookService;
+  // private postOwnershipService: PastOwnershipService;
 
   constructor() {
     this.userRepository = new UserRepository();
     this.bookService = new BookService();
+    // this.postOwnershipService = new PastOwnershipService();
   }
 
   async createUser(name: string): Promise<UserGetDTO> {
@@ -16,10 +20,13 @@ export class UserService {
     return { id: user.id, name: user.name }; // Return DTO
   }
 
-  async findUserById(id: number): Promise<UserGetDTO | any> {
+  async findUserById(id: number): Promise<SingleUserGetDTO | any> {
     const user = await this.userRepository.findUserById(id);
     if (!user) return null;
-    return { id: user.id, name: user.name, presentBooks: user.presentBooks, pastOwnedBooks: user.pastOwnedBooks }; // Return DTO
+    var result: SingleUserGetDTO = { id: user.id, name: user.name, presentBooks: [], pastOwnedBooks: [] };
+    result.presentBooks = user.presentBooks.map((book: any) => ({ name: book.name }));
+    result.pastOwnedBooks = user.pastOwnedBooks.map((book: any) => ({ name: book.name, score: book.score }));
+    return result;
   }
 
   async findAllUsers(): Promise<UserGetDTO[]> {
@@ -45,12 +52,26 @@ export class UserService {
   }
   
   async returnBook(userId: number, bookId: number, score: number): Promise<BookGetDTO | any> {
-    const user = await this.userRepository.findUserById(userId);
-    if(!user) return "User not found";
-    const userRes = await this.userRepository.returnBook(userId, bookId);
-    if(!userRes) return "Book not found";
-    const res = await this.bookService.returnBook(userId, bookId, score);
-    if(res === "Book not found") return "Book not found";
-    return res;
+  
+      // Start transaction
+      const t = await sequelize.transaction();
+      
+      try {
+        const userRes = await this.userRepository.returnBook(userId, bookId);
+        if (!userRes) throw new Error("Book not found");
+        
+        const res = await this.bookService.returnBook(userId, bookId, score);
+        if (res === "Book not found") throw new Error("Book not found");
+        
+        // await this.postOwnershipService.createPastOwnership(userId, bookId, score, { transaction: t });
+        
+        // Commit transaction if all operations succeed
+        await t.commit();
+        return res;
+      } catch (error) {
+        // Rollback transaction if any operation fails
+        await t.rollback();
+        throw error;
+      }
   }
 }

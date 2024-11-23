@@ -8,3 +8,12 @@ export interface BookGetDTO {
 export interface SingleBookGetDTO extends BookGetDTO {
     score: number;
 }
+
+export interface PastBookDTO {
+    name: string;
+    score: number;
+}
+
+export interface PresentBookDTO {
+    name: string;
+}

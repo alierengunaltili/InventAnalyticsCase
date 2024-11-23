@@ -17,8 +17,8 @@ export class UserRoute extends BaseRoute {
 
     this.router.post(
       '/',
-      userValidationRules.createUser,  // Validation rules
-      validateRequest,                 // Error handler middleware
+      userValidationRules.createUser,  
+      validateRequest,                 
       this.handleAsync((req: Request, res: Response) =>
         this.userController.createUser(req, res)
       )
@@ -41,6 +41,13 @@ export class UserRoute extends BaseRoute {
       validateRequest,
       this.handleAsync((req: Request, res: Response) =>
       this.userController.borrowBook(req, res)
+    ));
+
+    this.router.post('/:userId/return/:bookId', 
+      userValidationRules.returnBook,
+      validateRequest,
+      this.handleAsync((req: Request, res: Response) =>
+      this.userController.returnBook(req, res)
     ));
   }
 }

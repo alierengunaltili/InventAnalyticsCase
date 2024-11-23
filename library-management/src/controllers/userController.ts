@@ -88,12 +88,10 @@ export class UserController {
         const bookId: number = parseInt(req.params.bookId);
         const score: number = parseInt(req.body.score);
         const book = await this.userService.returnBook(userId, bookId, score);
-        if(book === "User not found") res.status(404).json({ error: 'User not found' });
-        if(book === "Book not found") res.status(404).json({ error: 'Book not found' });
         res.status(200).json(book);
       }
-      catch(error){
-        res.status(500).json({ error: 'Internal server error' });
+      catch(error: any){
+        res.status(500).json({ error: error.message });
       }
     }
 

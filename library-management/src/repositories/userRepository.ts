@@ -54,7 +54,6 @@ export class UserRepository {
 
   async returnBook(userId: number, bookId: number): Promise<Book | any> {
     try {
-      const result = await sequelize.transaction(async (transaction) => {
         const user = await User.findOne({
           where: { id: userId },
           include: [
@@ -62,8 +61,18 @@ export class UserRepository {
             { model: Book, as: 'pastOwnedBooks' }, // Many-to-Many
           ],
         });
+        if(user){
+          const bookToReturn = user.presentBooks.find((book: any) => book.id === bookId);
+          if (bookToReturn) {
+            user.pastOwnedBooks.push(bookToReturn);
+            user.presentBooks = user.presentBooks.filter((book: any) => book.id !== bookId);
+            await user.save();
+          }
+        }
+        else{
+          throw new Error("User not found");
+        }
         return user;
-      });
     }
     catch(error){
       return null;
