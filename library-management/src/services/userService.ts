@@ -25,7 +25,7 @@ export class UserService {
     if (!user) return null;
     var result: SingleUserGetDTO = { id: user.id, name: user.name, books: { present: [], past: [] } };
     result.books.present = user.presentBooks.map((book: any) => ({ name: book.name }));
-    result.books.past = user.pastOwnedBooks.map((book: any) => ({ name: book.name, score: book.score }));
+    result.books.past = user.pastOwnedBooks.map((book: any) => ({ name: book.name, score: book.userScore }));
     return result;
   }
 

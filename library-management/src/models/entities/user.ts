@@ -11,7 +11,7 @@ class User extends Model {
   static associate(models: any) {
     this.hasMany(models.Book, { foreignKey: 'currentOwnerId', as: 'presentBooks' });
     this.belongsToMany(models.Book, {
-      through: 'PastOwnerships',
+      through: models.PastOwnership,
       foreignKey: 'userId',
       otherKey: 'bookId',
       as: 'pastOwnedBooks',
