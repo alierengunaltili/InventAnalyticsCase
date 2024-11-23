@@ -1,7 +1,7 @@
 import { SingleUserGetDTO, UserGetDTO } from '@/models/dtos/userDTO';
 import { UserRepository } from '@/repositories/userRepository';
 import { BookService } from '@/services/bookService';
-import { BookGetDTO } from '@/models/dtos/bookDTO';
+import { BookGetDTO, PresentBookDTO } from '@/models/dtos/bookDTO';
 import { PastOwnershipService } from './pastOwnershipService';
 import sequelize from '@/config/database';
 export class UserService {
@@ -22,10 +22,10 @@ export class UserService {
 
   async findUserById(id: number): Promise<SingleUserGetDTO | any> {
     const user = await this.userRepository.findUserById(id);
-    if (!user) return null;
-    var result: SingleUserGetDTO = { id: user.id, name: user.name, books: { present: [], past: [] } };
+    if (!user) throw new Error("User not found");
+    var result: SingleUserGetDTO = { id: user.id, name: user.name, books: { present :[], past: [] } };
     result.books.present = user.presentBooks.map((book: any) => ({ name: book.name }));
-    result.books.past = user.pastOwnedBooks.map((book: any) => ({ name: book.name, score: book.PastOwnership.userScore }));
+    result.books.past = user.pastOwnedBooks.map((book: any) => ({ name: book.name, userScore: book.PastOwnership.userScore }));
     return result;
   }
 
