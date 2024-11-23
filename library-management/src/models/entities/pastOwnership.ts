@@ -1,7 +1,16 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '@config/database';
 
-class PastOwnership extends Model {}
+class PastOwnership extends Model {
+  public userId!: number;
+  public bookId!: number;
+  public userScore!: number;
+
+  static associate(models: any) {
+    this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    this.belongsTo(models.Book, { foreignKey: 'bookId', as: 'book' });
+  }
+}
 
 PastOwnership.init(
   {
