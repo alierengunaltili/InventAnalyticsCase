@@ -19,21 +19,21 @@ export const userValidationRules = {
     ],
     borrowBook: [
         param('userId')
-        .isInt()
+        .isInt({min: 1})
         .withMessage('User ID must be an integer'),
         param('bookId')
-        .isInt()
+        .isInt({min: 1})
         .withMessage('Book ID must be an integer'),
     ],
     returnBook: [
         param('userId')
-        .isInt()
+        .isInt({min: 1})
         .withMessage('User ID must be an integer'),
         param('bookId')
-        .isInt()
+        .isInt({min: 1})
         .withMessage('Book ID must be an integer'),
         body('score')
-        .isInt()
-        .withMessage('Score must be an integer'),
+        .isInt({min: 0})
+        .withMessage('Score must be a zero or positive integer'),
     ]
 };
