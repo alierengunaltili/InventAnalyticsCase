@@ -28,4 +28,23 @@ export class BookController {
             res.status(500).json({ error: 'Internal server error' });
         }
     }
+
+    async getBook(req: Request, res: Response): Promise<void> {
+        try {
+            const bookId: number = parseInt(req.params.bookId);
+            const book = await this.bookService.getBook(bookId);
+            res.status(200).json(book);
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
+
+    async getAllBooks(req: Request, res: Response): Promise<void> {
+        try {
+            const books = await this.bookService.getAllBooks();
+            res.status(200).json(books);
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
 }

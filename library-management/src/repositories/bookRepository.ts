@@ -34,4 +34,12 @@ export class BookRepository {
             throw error;
         }
     }
+
+    async getBook(bookId: number): Promise<Book | null> {
+        return safeExecute(() => Book.findByPk(bookId));
+    }
+
+    async getAllBooks(): Promise<Book[]> {
+        return safeExecute(() => Book.findAll());
+    }
 }

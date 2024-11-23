@@ -15,5 +15,14 @@ export class BookRoute extends BaseRoute{
         this.router.post('/', this.handleAsync((req: Request, res: Response) =>
             this.bookController.createBook(req, res)
         ));
+
+        this.router.get('/', this.handleAsync((req: Request, res: Response) =>
+            this.bookController.getAllBooks(req, res)
+        ));
+
+
+        this.router.get('/:bookId', this.handleAsync((req: Request, res: Response) =>
+            this.bookController.getBook(req, res)
+        ));
     }
 }

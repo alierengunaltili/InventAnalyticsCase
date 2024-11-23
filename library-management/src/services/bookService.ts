@@ -1,4 +1,4 @@
-import { BookGetDTO } from '@/models/dtos/bookDTO';
+import { BookGetDTO, SingleBookGetDTO } from '@/models/dtos/bookDTO';
 import { BookRepository } from '@/repositories/bookRepository';
 
 export class BookService {
@@ -17,5 +17,16 @@ export class BookService {
         const book = await this.bookRepository.borrowBook(userId, bookId);
         if(!book) return "Book not found";
         return { id: book.id, name: book.name};
+    }
+
+    async getBook(bookId: number): Promise<SingleBookGetDTO | any> {
+        const book = await this.bookRepository.getBook(bookId);
+        if(!book) return "Book not found";
+        return { id: book.id, name: book.name, score: book.score};
+    }
+
+    async getAllBooks(): Promise<BookGetDTO[]> {    
+        const books = await this.bookRepository.getAllBooks();
+        return books.map((book) => ({ id: book.id, name: book.name }));
     }
 }
