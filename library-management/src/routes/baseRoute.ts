@@ -9,9 +9,9 @@ export abstract class BaseRoute {
 
   protected abstract registerRoutes(): void;
 
-  protected handleAsync(routeHandler: (req: Request, res: Response) => Promise<void>) {
+  protected handleAsync(routeHandler: (req: Request, res: Response, next: NextFunction) => Promise<void>) {
     return (req: Request, res: Response, next: NextFunction) => {
-      routeHandler(req, res).catch(next);
+      routeHandler(req, res, next).catch(next);
     };
   }
 }

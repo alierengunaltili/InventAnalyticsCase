@@ -1,0 +1,19 @@
+import { body, param } from 'express-validator';
+
+
+export const bookValidationRules = {
+    getBook: [
+        param('bookId')
+        .exists()
+        .withMessage('Book ID is required')
+        .isInt({ min: 1 })
+        .withMessage('Book ID must be a positive integer')
+        .toInt(),
+    ],
+    createBook: [
+        body('name')
+        .trim()
+        .notEmpty()
+        .withMessage('Name is required')
+    ]
+}
