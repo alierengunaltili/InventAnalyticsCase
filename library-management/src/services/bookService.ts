@@ -13,9 +13,9 @@ export class BookService {
         return { id: book.id, name: book.name };
     }
 
-    async borrowBook(userId: number, bookId: number): Promise<BookGetDTO | null> {
+    async borrowBook(userId: number, bookId: number): Promise<BookGetDTO | any> {
         const book = await this.bookRepository.borrowBook(userId, bookId);
-        if(!book) return null;
+        if(!book) return "Book not found";
         return { id: book.id, name: book.name};
     }
 }

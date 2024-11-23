@@ -19,6 +19,7 @@ export class BookRepository {
                     }
                     else{
                         book.currentOwnerId = userId;
+                        book.ownerCount += 1;
                         await book.save({ transaction });
                         return book;
                     }

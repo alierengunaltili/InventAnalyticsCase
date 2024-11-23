@@ -6,6 +6,8 @@ class Book extends Model {
   public id!: number;
   public name!: string;
   public currentOwnerId!: number | null; // Foreign key for current owner
+  public score!: number;
+  public ownerCount!: number;
   static associate(models: any) {
     this.belongsTo(models.User, { foreignKey: 'currentOwnerId', as: 'currentOwner' });
     this.belongsToMany(models.User, { through: 'PastOwnerships', as: 'pastUsers' });

@@ -37,7 +37,11 @@ export class UserService {
     return this.userRepository.deleteUser(id);
   }
 
-  async borrowBook(userId: number, bookId: number): Promise<BookGetDTO | null> {
-    return this.bookService.borrowBook(userId, bookId);
+  async borrowBook(userId: number, bookId: number): Promise<BookGetDTO | any> {
+    const user = await this.userRepository.findUserById(userId);
+    if(!user) return "User not found";
+    const res = await this.bookService.borrowBook(userId, bookId);
+    if(res === "Book not found") return "Book not found";
+    return res;
   }
 }

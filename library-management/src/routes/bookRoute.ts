@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { BookController } from '@/controllers/bookController';
 import { BaseRoute } from './baseRoute';
+import { Request, Response } from 'express';
 
 export class BookRoute extends BaseRoute{
     private bookController: BookController;
@@ -11,6 +12,8 @@ export class BookRoute extends BaseRoute{
     }
 
     protected registerRoutes(): void {
-        this.router.post('/', (req, res) => this.bookController.createBook(req, res));
+        this.router.post('/', this.handleAsync((req: Request, res: Response) =>
+            this.bookController.createBook(req, res)
+        ));
     }
 }

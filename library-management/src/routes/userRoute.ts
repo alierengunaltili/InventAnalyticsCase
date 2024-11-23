@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { UserController } from '@/controllers/userController';
 import { BaseRoute } from '@/routes/baseRoute';
+import { Request, Response } from 'express';
 export class UserRoute extends BaseRoute {
   private userController: UserController;
 
@@ -10,9 +11,17 @@ export class UserRoute extends BaseRoute {
   }
 
   protected registerRoutes(): void {
-    this.router.post('/', (req, res) => this.userController.createUser(req, res));
-    this.router.get('/', (req, res) => this.userController.getAllUsers(req, res));
-    this.router.post('/:userId/borrow/:bookId', (req, res) => this.userController.borrowBook(req, res));
+    this.router.post('/', this.handleAsync((req: Request, res: Response) =>
+      this.userController.createUser(req, res)
+    ));
+
+    this.router.get('/', this.handleAsync((req: Request, res: Response) =>
+      this.userController.getAllUsers(req, res)
+    ));
+
+    this.router.post('/:userId/borrow/:bookId', this.handleAsync((req: Request, res: Response) =>
+      this.userController.borrowBook(req, res)
+    ));
   }
 }
 

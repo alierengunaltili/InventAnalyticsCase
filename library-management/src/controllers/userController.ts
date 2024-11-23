@@ -76,6 +76,8 @@ export class UserController {
             const userId: number = parseInt(req.params.userId);
             const bookId: number = parseInt(req.params.bookId);
             const book = await this.userService.borrowBook(userId, bookId);
+            if(book === "User not found") res.status(404).json({ error: 'User not found' });
+            if(book === "Book not found") res.status(404).json({ error: 'Book not found' });
             res.status(200).json(book);
         } catch (error) {
             res.status(500).json({ error: 'Internal server error' });

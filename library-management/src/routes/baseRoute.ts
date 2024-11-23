@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 
 export abstract class BaseRoute {
   public router: Router;
@@ -8,4 +8,10 @@ export abstract class BaseRoute {
   }
 
   protected abstract registerRoutes(): void;
+
+  protected handleAsync(routeHandler: (req: Request, res: Response) => Promise<void>) {
+    return (req: Request, res: Response, next: NextFunction) => {
+      routeHandler(req, res).catch(next);
+    };
+  }
 }
