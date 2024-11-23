@@ -1,5 +1,4 @@
 import User from '@/models/entities/user';
-import { safeExecute } from '@/utils/repositoryErrorHandler';
 import sequelize from '@/config/database';
 import Book from '@/models/entities/book';
 import PastOwnership from '@/models/entities/pastOwnership';
@@ -7,7 +6,12 @@ import PastOwnership from '@/models/entities/pastOwnership';
 export class UserRepository {
 
   async createUser(name: string): Promise<User> {
-    return safeExecute(() => User.create({ name }));
+    try{
+      return await User.create({ name });
+    }
+    catch(error){
+      throw error;
+    }
   }
 
   async findUserById(id: number): Promise<User | any> {
@@ -31,11 +35,16 @@ export class UserRepository {
   }
 
   async findAllUsers(): Promise<User[]> {
-    return safeExecute(() => User.findAll());
+    try{
+      return await User.findAll();
+    }
+    catch(error){
+      throw error;
+    }
   }
 
   async updateUser(id: number, newName: string): Promise<User | null> {
-    return safeExecute(async () => {
+    try{
       const user = await User.findByPk(id);
       if (user) {
         user.name = newName;
@@ -43,14 +52,20 @@ export class UserRepository {
         return user;
       }
       return null;
-    });
+    }
+    catch(error){
+      throw error;
+    }
   }
 
   async deleteUser(id: number): Promise<boolean> {
-    return safeExecute(async () => {
+    try{
       const deletedCount = await User.destroy({ where: { id } });
       return deletedCount > 0;
-    });
+    }
+    catch(error){
+      throw error;
+    }
   }
 
   async returnBook(userId: number, bookId: number): Promise<Book | any> {

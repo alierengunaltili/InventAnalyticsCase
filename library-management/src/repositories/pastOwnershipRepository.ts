@@ -1,5 +1,4 @@
 import PastOwnership from "@/models/entities/pastOwnership";
-import { safeExecute } from '@/utils/repositoryErrorHandler';
 
 export class PastOwnershipRepository {
 

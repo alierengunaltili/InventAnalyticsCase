@@ -1,11 +1,16 @@
 import Book from '@/models/entities/book';
 import { Op } from 'sequelize';
-import { safeExecute } from '@/utils/repositoryErrorHandler';
 import sequelize from '@/config/database';
 export class BookRepository {
 
     async createBook(name: string): Promise<Book> {
-        return safeExecute(() => Book.create({ name }));
+        try{
+            return await Book.create({ name });
+        }
+        catch(error){
+            console.error('Error creating book:', error);
+            throw error;
+        }
     }
 
     async borrowBook(userId: number, bookId: number): Promise<Book | null> {
@@ -30,11 +35,24 @@ export class BookRepository {
     }
 
     async getBook(bookId: number): Promise<Book | null> {
-        return safeExecute(() => Book.findByPk(bookId));
+        // return safeExecute(() => Book.findByPk(bookId));
+        try{
+            return await Book.findByPk(bookId);
+        }
+        catch(error){
+            console.error('Error getting book:', error);
+            throw error;
+        }
     }
 
     async getAllBooks(): Promise<Book[]> {
-        return safeExecute(() => Book.findAll());
+        try{
+            return await Book.findAll();
+        }
+        catch(error){
+            console.error('Error getting all books:', error);
+            throw error;
+        }
     }
 
     async returnBook(userId: number, bookId: number, score: number): Promise<Book | any> {
