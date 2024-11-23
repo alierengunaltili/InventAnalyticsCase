@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { App } from './app'; 
-import models from './models';
+import './models/index';
+
 
 // Load environment variables from .env file
 dotenv.config();

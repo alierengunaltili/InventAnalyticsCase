@@ -1,6 +1,7 @@
 import express, { Express } from 'express';
 import { UserRoute } from '@/routes/userRoute';
 import { BookRoute } from '@/routes/bookRoute';
+
 export class App {
   public app: Express;
 
