@@ -25,7 +25,7 @@ export class UserRepository {
       return result;
     }
     catch(error){
-      return null;
+      return error;
     }
   }
 

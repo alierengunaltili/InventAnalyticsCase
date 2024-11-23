@@ -10,29 +10,24 @@ export class BookRepository {
 
     async borrowBook(userId: number, bookId: number): Promise<Book | null> {
         //transaction scope 
-        try {
-            const result = await sequelize.transaction(async (transaction) => {
-                const book = await Book.findByPk(bookId, { transaction });
-                if(book){
-                    if(book.currentOwnerId){
-                        return null;
-                    }
-                    else{
-                        book.currentOwnerId = userId;
-                        book.ownerCount += 1;
-                        await book.save({ transaction });
-                        return book;
-                    }
+        const result = await sequelize.transaction(async (transaction) => {
+            const book = await Book.findByPk(bookId, { transaction });
+            if(book){
+                if(book.currentOwnerId){
+                    throw new Error(`Book already borrowed by user ${book.currentOwnerId}`);
                 }
                 else{
-                    return null;
+                    book.currentOwnerId = userId;
+                    book.ownerCount += 1;
+                    await book.save({ transaction });
+                    return book;
                 }
-            });
-            return result;
-        } catch (error) {
-            console.error('Error borrowing book:', error);
-            throw error;
-        }
+            }
+            else{
+                throw new Error("Book not found");
+            }
+        });
+        return result;
     }
 
     async getBook(bookId: number): Promise<Book | null> {

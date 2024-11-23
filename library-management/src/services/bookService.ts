@@ -15,13 +15,13 @@ export class BookService {
 
     async borrowBook(userId: number, bookId: number): Promise<BookGetDTO | any> {
         const book = await this.bookRepository.borrowBook(userId, bookId);
-        if(!book) return "Book not found";
-        return { id: book.id, name: book.name};
+        if(!book) throw new Error("Book not found");
+        return { id: book.id, name: book.name};    
     }
 
     async getBook(bookId: number): Promise<SingleBookGetDTO | any> {
         const book = await this.bookRepository.getBook(bookId);
-        if(!book) return "Book not found";
+        if(!book) throw new Error("Book not found");
         return { id: book.id, name: book.name, score: book.score};
     }
 

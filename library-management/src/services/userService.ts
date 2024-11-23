@@ -39,9 +39,8 @@ export class UserService {
 
   async borrowBook(userId: number, bookId: number): Promise<BookGetDTO | any> {
     const user = await this.userRepository.findUserById(userId);
-    if(!user) return "User not found";
+    if(!user) throw new Error("User not found");
     const res = await this.bookService.borrowBook(userId, bookId);
-    if(res === "Book not found") return "Book not found";
     return res;
   }
   

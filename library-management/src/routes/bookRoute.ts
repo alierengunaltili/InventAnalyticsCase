@@ -22,8 +22,6 @@ export class BookRoute extends BaseRoute{
         ));
 
         this.router.get('/',
-            bookValidationRules.empty,
-            validateRequest,
             this.handleAsync((req: Request, res: Response) =>
             this.bookController.getAllBooks(req, res)
         ));
