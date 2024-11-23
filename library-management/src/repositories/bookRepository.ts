@@ -43,6 +43,9 @@ export class BookRepository {
         try {
                 const book = await Book.findByPk(bookId);
                 if(book){
+                    if(book.currentOwnerId !== userId){
+                        throw new Error(`Book not borrowed by user ${userId}`);
+                    }
                     book.currentOwnerId = null;
                     var totalScore = book.score * book.ownerCount;
                     book.ownerCount = book.ownerCount + 1;

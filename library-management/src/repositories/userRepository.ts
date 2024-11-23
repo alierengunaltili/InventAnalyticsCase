@@ -68,6 +68,9 @@ export class UserRepository {
             user.presentBooks = user.presentBooks.filter((book: any) => book.id !== bookId);
             await user.save();
           }
+          else{
+            throw new Error(`Book not borrowed by user ${userId}`);
+          }
         }
         else{
           throw new Error("User not found");
