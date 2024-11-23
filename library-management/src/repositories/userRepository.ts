@@ -15,6 +15,7 @@ export class UserRepository {
         const user = await User.findOne({
           where: { id: id },
           include: [
+            { model: Book, as: 'pastOwnedBooks' },
             { model: Book , as: 'presentBooks' }, 
           ],
           transaction: transaction,
