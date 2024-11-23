@@ -5,6 +5,9 @@ import Book from '@/models/entities/book';
 class User extends Model {
   public id!: number;
   public name!: string;
+  static associate(models: any) {
+    this.hasMany(models.Book, { foreignKey: 'currentOwnerId', as: 'presentBooks' });
+  }
 }
 
 User.init(
@@ -25,9 +28,4 @@ User.init(
     tableName: 'users',
   }
 );
-
-// Associations
-User.hasMany(Book, { foreignKey: 'currentOwnerId', as: 'presentBooks' }); // One-to-Many
-User.belongsToMany(Book, { through: 'PastOwnerships', as: 'pastBooks' }); // Many-to-Many
-
 export default User;

@@ -12,7 +12,8 @@
       "@middlewares/*": ["middlewares/*"],
       "@utils/*": ["utils/*"],
       "@types/*": ["types/*"],
-      "@services/*": ["services/*"]
+      "@services/*": ["services/*"],
+      "@routes/*": ["routes/*"]
     },
     "outDir": "./dist",
     "esModuleInterop": true,

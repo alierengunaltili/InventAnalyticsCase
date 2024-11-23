@@ -6,6 +6,10 @@ class Book extends Model {
   public id!: number;
   public name!: string;
   public currentOwnerId!: number | null; // Foreign key for current owner
+  static associate(models: any) {
+    this.belongsTo(models.User, { foreignKey: 'currentOwnerId', as: 'currentOwner' });
+    this.belongsToMany(models.User, { through: 'PastOwnerships', as: 'pastUsers' });
+  }
 }
 
 Book.init(
@@ -34,9 +38,5 @@ Book.init(
     tableName: 'books',
   }
 );
-
-// Associations
-Book.belongsTo(User, { foreignKey: 'currentOwnerId', as: 'currentOwner' }); // Many-to-One
-Book.belongsToMany(User, { through: 'PastOwnerships', as: 'pastUsers' }); // Many-to-Many
 
 export default Book;
