@@ -6,6 +6,7 @@ import PastOwnership from './entities/pastOwnership';
 const models = {
   User,
   Book,
+  PastOwnership
 };
 
 function isUserModel(model: any): model is typeof User {
@@ -28,15 +29,19 @@ Object.values(models).forEach((model) => {
     model.init(User.getAttributes(), { sequelize });
   } else if (isBookModel(model)) {
     model.init(Book.getAttributes(), { sequelize });
-  } 
+  } else if (isPastOwnershipModel(model)) {
+    model.init(PastOwnership.getAttributes(), { sequelize });
+  }
 });
 
 // Step 2: Register associations
 Object.values(models).forEach((model) => {
   console.log(`Registering associations for model: ${model.name}`); // Debug: Log model name
-  if (model.associate) {
+  if (isUserModel(model)) {
     model.associate(models);
-  }
+  } else if (isBookModel(model)) {
+    model.associate(models);
+  } 
 });
 
 // Step 3: Log associations
