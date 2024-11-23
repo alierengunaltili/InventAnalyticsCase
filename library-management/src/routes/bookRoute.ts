@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { BookController } from '@/controllers/bookController';
 import { BaseRoute } from './baseRoute';
 import { Request, Response } from 'express';
+import { bookValidationRules } from '@/middlewares/bookValidationMiddleware';
+import { validateRequest } from '@/middlewares/validateRequest';
 
 export class BookRoute extends BaseRoute{
     private bookController: BookController;
@@ -12,16 +14,25 @@ export class BookRoute extends BaseRoute{
     }
 
     protected registerRoutes(): void {
-        this.router.post('/', this.handleAsync((req: Request, res: Response) =>
+        this.router.post('/', 
+            bookValidationRules.createBook,
+            validateRequest,
+            this.handleAsync((req: Request, res: Response) =>
             this.bookController.createBook(req, res)
         ));
 
-        this.router.get('/', this.handleAsync((req: Request, res: Response) =>
+        this.router.get('/',
+            bookValidationRules.empty,
+            validateRequest,
+            this.handleAsync((req: Request, res: Response) =>
             this.bookController.getAllBooks(req, res)
         ));
 
 
-        this.router.get('/:bookId', this.handleAsync((req: Request, res: Response) =>
+        this.router.get('/:bookId', 
+            bookValidationRules.getBook,
+            validateRequest,
+            this.handleAsync((req: Request, res: Response) =>
             this.bookController.getBook(req, res)
         ));
     }

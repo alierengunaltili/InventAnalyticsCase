@@ -24,7 +24,10 @@ export class UserRoute extends BaseRoute {
       )
     );
 
-    this.router.get('/', this.handleAsync((req: Request, res: Response) =>
+    this.router.get('/', 
+      userValidationRules.empty,
+      validateRequest,
+      this.handleAsync((req: Request, res: Response) =>
       this.userController.getAllUsers(req, res)
     ));
 

@@ -15,5 +15,13 @@ export const bookValidationRules = {
         .trim()
         .notEmpty()
         .withMessage('Name is required')
+    ],
+    empty: [
+        body()
+            .isEmpty()
+            .withMessage('Body must be empty'),
+        param()
+            .isEmpty()
+            .withMessage('Param must be empty'),
     ]
 }

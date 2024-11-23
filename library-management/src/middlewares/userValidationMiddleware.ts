@@ -35,5 +35,13 @@ export const userValidationRules = {
         body('score')
         .isInt({min: 0})
         .withMessage('Score must be a zero or positive integer'),
+    ],
+    empty: [
+        body()
+            .isEmpty()
+            .withMessage('Body must be empty'),
+        param()
+            .isEmpty()
+            .withMessage('Param must be empty'),
     ]
 };
