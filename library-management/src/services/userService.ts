@@ -16,10 +16,10 @@ export class UserService {
     return { id: user.id, name: user.name }; // Return DTO
   }
 
-  async findUserById(id: number): Promise<UserGetDTO | null> {
+  async findUserById(id: number): Promise<UserGetDTO | any> {
     const user = await this.userRepository.findUserById(id);
     if (!user) return null;
-    return { id: user.id, name: user.name }; // Return DTO
+    return { id: user.id, name: user.name, presentBooks: user.presentBooks, pastOwnedBooks: user.pastOwnedBooks }; // Return DTO
   }
 
   async findAllUsers(): Promise<UserGetDTO[]> {
@@ -41,6 +41,16 @@ export class UserService {
     const user = await this.userRepository.findUserById(userId);
     if(!user) return "User not found";
     const res = await this.bookService.borrowBook(userId, bookId);
+    if(res === "Book not found") return "Book not found";
+    return res;
+  }
+  
+  async returnBook(userId: number, bookId: number, score: number): Promise<BookGetDTO | any> {
+    const user = await this.userRepository.findUserById(userId);
+    if(!user) return "User not found";
+    const userRes = await this.userRepository.returnBook(userId, bookId);
+    if(!userRes) return "Book not found";
+    const res = await this.bookService.returnBook(userId, bookId, score);
     if(res === "Book not found") return "Book not found";
     return res;
   }

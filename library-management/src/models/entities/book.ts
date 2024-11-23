@@ -1,16 +1,21 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '@config/database';
-import User from '@/models/entities/user';
 
 class Book extends Model {
   public id!: number;
   public name!: string;
-  public currentOwnerId!: number | null; // Foreign key for current owner
+  public currentOwnerId!: number | null;
   public score!: number;
   public ownerCount!: number;
+
   static associate(models: any) {
     this.belongsTo(models.User, { foreignKey: 'currentOwnerId', as: 'currentOwner' });
-    this.belongsToMany(models.User, { through: 'PastOwnerships', as: 'pastUsers' });
+    this.belongsToMany(models.User, {
+      through: 'past_ownerships',
+      foreignKey: 'bookId',
+      otherKey: 'userId',
+      as: 'pastOwners',
+    });
   }
 }
 
@@ -38,10 +43,6 @@ Book.init(
     currentOwnerId: {
       type: DataTypes.INTEGER,
       allowNull: true,
-      references: {
-        model: User,
-        key: 'id',
-      },
     },
   },
   {

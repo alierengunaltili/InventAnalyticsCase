@@ -1,12 +1,18 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '@config/database';
-import Book from '@/models/entities/book';
 
 class User extends Model {
   public id!: number;
   public name!: string;
+
   static associate(models: any) {
     this.hasMany(models.Book, { foreignKey: 'currentOwnerId', as: 'presentBooks' });
+    this.belongsToMany(models.Book, {
+      through: 'past_ownerships',
+      foreignKey: 'userId',
+      otherKey: 'bookId',
+      as: 'pastOwnedBooks',
+    });
   }
 }
 
@@ -28,4 +34,5 @@ User.init(
     tableName: 'users',
   }
 );
+
 export default User;

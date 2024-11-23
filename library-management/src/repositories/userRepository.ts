@@ -1,13 +1,31 @@
 import User from '@/models/entities/user';
 import { safeExecute } from '@/utils/repositoryErrorHandler';
+import sequelize from '@/config/database';
+import Book from '@/models/entities/book';
+
 export class UserRepository {
 
   async createUser(name: string): Promise<User> {
     return safeExecute(() => User.create({ name }));
   }
 
-  async findUserById(id: number): Promise<User | null> {
-    return safeExecute(() => User.findByPk(id));
+  async findUserById(id: number): Promise<User | any> {
+    try{
+      const result = await sequelize.transaction(async (transaction) => {
+        const user = await User.findOne({
+          where: { id: id },
+          include: [
+            { model: Book , as: 'presentBooks' }, 
+          ],
+          transaction: transaction,
+        });
+        return user;
+      });
+      return result;
+    }
+    catch(error){
+      return null;
+    }
   }
 
   async findAllUsers(): Promise<User[]> {
@@ -31,6 +49,24 @@ export class UserRepository {
       const deletedCount = await User.destroy({ where: { id } });
       return deletedCount > 0;
     });
+  }
+
+  async returnBook(userId: number, bookId: number): Promise<Book | any> {
+    try {
+      const result = await sequelize.transaction(async (transaction) => {
+        const user = await User.findOne({
+          where: { id: userId },
+          include: [
+            { model: Book, as: 'presentBooks' }, // One-to-Many
+            { model: Book, as: 'pastOwnedBooks' }, // Many-to-Many
+          ],
+        });
+        return user;
+      });
+    }
+    catch(error){
+      return null;
+    }
   }
 }
 

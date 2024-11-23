@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
-import { App } from './app'; // Adjust the path to your `app.ts` file
+import { App } from './app'; 
+import models from './models';
 
 // Load environment variables from .env file
 dotenv.config();

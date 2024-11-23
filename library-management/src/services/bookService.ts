@@ -29,4 +29,10 @@ export class BookService {
         const books = await this.bookRepository.getAllBooks();
         return books.map((book) => ({ id: book.id, name: book.name }));
     }
+
+    async returnBook(userId: number, bookId: number, score: number): Promise<BookGetDTO | any> {
+        const book = await this.bookRepository.returnBook(userId, bookId, score);
+        if(!book) return "Book not found";
+        return { id: book.id, name: book.name};
+    }
 }

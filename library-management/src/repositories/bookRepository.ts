@@ -42,4 +42,29 @@ export class BookRepository {
     async getAllBooks(): Promise<Book[]> {
         return safeExecute(() => Book.findAll());
     }
+
+    async returnBook(userId: number, bookId: number, score: number): Promise<Book | any> {
+
+        try {
+            const result = await sequelize.transaction(async (transaction) => {
+                const book = await Book.findByPk(bookId, { transaction });
+                if(book){
+                    book.currentOwnerId = null;
+                    var totalScore = book.score * book.ownerCount;
+                    book.ownerCount = book.ownerCount + 1;
+                    totalScore = totalScore + score;
+                    book.score = totalScore / book.ownerCount;
+                    await book.save({ transaction });
+                    return book;
+                }
+                else{
+                    return null;
+                }
+            });
+        }
+        catch(error){
+            console.error('Error returning book:', error);
+            throw error;
+        }
+    }
 }

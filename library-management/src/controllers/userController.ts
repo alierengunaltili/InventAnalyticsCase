@@ -25,7 +25,7 @@ export class UserController {
 
   async getUserById(req: Request, res: Response): Promise<void> {
     try {
-      const id = parseInt(req.params.id, 10);
+      const id = parseInt(req.params.userId, 10);
       if (isNaN(id)) {
         res.status(400).json({ error: 'Invalid ID' });
         return;
@@ -82,6 +82,21 @@ export class UserController {
         } catch (error) {
             res.status(500).json({ error: 'Internal server error' });
         }
+    }
+
+    async returnBook(req: Request, res: Response) : Promise<void> {
+      try{
+        const userId: number = parseInt(req.params.userId);
+        const bookId: number = parseInt(req.params.bookId);
+        const score: number = parseInt(req.body.score);
+        const book = await this.userService.returnBook(userId, bookId, score);
+        if(book === "User not found") res.status(404).json({ error: 'User not found' });
+        if(book === "Book not found") res.status(404).json({ error: 'Book not found' });
+        res.status(200).json(book);
+      }
+      catch(error){
+        res.status(500).json({ error: 'Internal server error' });
+      }
     }
 
 }

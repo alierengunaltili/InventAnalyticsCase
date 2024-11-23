@@ -19,6 +19,10 @@ export class UserRoute extends BaseRoute {
       this.userController.getAllUsers(req, res)
     ));
 
+    this.router.get('/:userId', this.handleAsync((req: Request, res: Response) =>
+      this.userController.getUserById(req, res)
+    ));
+
     this.router.post('/:userId/borrow/:bookId', this.handleAsync((req: Request, res: Response) =>
       this.userController.borrowBook(req, res)
     ));
