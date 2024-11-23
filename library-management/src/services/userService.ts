@@ -7,12 +7,12 @@ import sequelize from '@/config/database';
 export class UserService {
   private userRepository: UserRepository;
   private bookService: BookService;
-  // private postOwnershipService: PastOwnershipService;
+  private postOwnershipService: PastOwnershipService;
 
   constructor() {
     this.userRepository = new UserRepository();
     this.bookService = new BookService();
-    // this.postOwnershipService = new PastOwnershipService();
+    this.postOwnershipService = new PastOwnershipService();
   }
 
   async createUser(name: string): Promise<UserGetDTO> {
@@ -63,7 +63,7 @@ export class UserService {
         const res = await this.bookService.returnBook(userId, bookId, score);
         if (res === "Book not found") throw new Error("Book not found");
         
-        // await this.postOwnershipService.createPastOwnership(userId, bookId, score, { transaction: t });
+        await this.postOwnershipService.createPastOwnership(userId, bookId, score);
         
         // Commit transaction if all operations succeed
         await t.commit();

@@ -11,7 +11,7 @@ export class PastOwnershipService {
     }
     
 
-    async createPastOwnership(userId: number, bookId: number, score: number, transaction: any): Promise<PastOwnership> {
-        return this.pastOwnershipRepository.createPastOwnership(userId, bookId, score, transaction);
+    async createPastOwnership(userId: number, bookId: number, score: number): Promise<PastOwnership> {
+        return this.pastOwnershipRepository.createPastOwnership(userId, bookId, score);
     }
 }
