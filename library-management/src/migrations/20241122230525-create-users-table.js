@@ -4,7 +4,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     // Create Users Table
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('Users', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -27,7 +27,7 @@ module.exports = {
     });
 
     // Create Books Table
-    await queryInterface.createTable('books', {
+    await queryInterface.createTable('Books', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -51,7 +51,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
-          model: 'users', // Foreign key references users table
+          model: 'Users', // Foreign key references users table
           key: 'id',
         },
         onUpdate: 'CASCADE', // Update book's owner if user ID changes
@@ -70,7 +70,7 @@ module.exports = {
     });
 
     // Create PastOwnerships Table
-    await queryInterface.createTable('past_ownerships', {
+    await queryInterface.createTable('PastOwnerships', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -79,7 +79,7 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'users', // Foreign key references users table
+          model: 'Users', // Foreign key references users table
           key: 'id',
         },
         onUpdate: 'CASCADE', // Update if user ID changes
@@ -88,7 +88,7 @@ module.exports = {
       bookId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'books', // Foreign key references books table
+          model: 'Books', // Foreign key references books table
           key: 'id',
         },
         onUpdate: 'CASCADE', // Update if book ID changes
@@ -104,8 +104,8 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     // Drop tables in reverse order to maintain foreign key constraints
-    await queryInterface.dropTable('past_ownerships');
-    await queryInterface.dropTable('books');
-    await queryInterface.dropTable('users');
+    await queryInterface.dropTable('PastOwnerships');
+    await queryInterface.dropTable('Books');
+    await queryInterface.dropTable('Users');
   },
 };

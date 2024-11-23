@@ -23,7 +23,7 @@ PastOwnership.init(
   {
     sequelize,
     modelName: 'PastOwnership',
-    tableName: 'past_ownerships',
+    tableName: 'PastOwnerships',
     timestamps: false,
   }
 );
