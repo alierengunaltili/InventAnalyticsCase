@@ -31,14 +31,9 @@ export class UserController {
         return;
       }
       const user = await this.userService.findUserById(id);
-      if (!user) {
-        res.status(404).json({ error: 'User not found' });
-        return;
-      }
       res.status(200).json(user);
-    } catch (error) {
-      console.error('Error in getUserById:', error);
-      res.status(500).json({ error: 'Internal server error' });
+    } catch (error : any) {
+      res.status(500).json({ error: error.message });
     }
   }
 

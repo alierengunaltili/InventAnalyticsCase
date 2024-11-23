@@ -30,7 +30,7 @@ export class UserRepository {
       return result;
     }
     catch(error){
-      return error;
+      throw "User fetch failed";
     }
   }
 
