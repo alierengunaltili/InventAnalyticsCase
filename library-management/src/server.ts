@@ -1,13 +1,14 @@
 import dotenv from 'dotenv';
 import { App } from './app'; 
 import './models/index';
+import 'tsconfig-paths/register';
 import { Request, Response } from 'express';
 
 
 // Load environment variables from .env file
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 //create an empty get request to check if the server is running
 
