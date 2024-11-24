@@ -79,7 +79,7 @@ export class UserRepository {
             await user.save();
           }
           else{
-            throw new Error(`Book not borrowed by user ${userId}`);
+            throw new Error(`User ${userId} does not have book ${bookId} borrowed`);
           }
         }
         else{
