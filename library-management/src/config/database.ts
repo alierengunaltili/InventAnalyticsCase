@@ -19,9 +19,6 @@ const sequelize = new Sequelize(process.env.DATABASE_URL!, {
     acquire: 30000,
     idle: 10000,
   },
-  define: {
-    schema: 'invent-analytics-case', // Specify the schema name
-  },
 });
 
 // Test the connection
