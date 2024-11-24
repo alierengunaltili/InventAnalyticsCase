@@ -13,9 +13,13 @@ const PORT = process.env.PORT || 3000;
 
 // Initialize the application
 const appInstance = new App();
-appInstance['app'].get('/', (req: Request, res: Response) => {
-  res.send('Server is running');
+
+appInstance['app'].listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+}).on('error', (err) => {
+  console.error('Failed to start server:', err);
 });
+
 
 // Start the server
 appInstance['app'].listen(PORT, () => {
