@@ -1,6 +1,7 @@
 import { validationResult } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
 
+//validate request middleware
 export const validateRequest = (req: Request, res: Response, next: NextFunction): void => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -11,6 +12,7 @@ export const validateRequest = (req: Request, res: Response, next: NextFunction)
 };
 
 
+//check if the body is empty middleware
 export const checkEmptyBody = (req: Request, res: Response, next: NextFunction): void => {
     if (Object.keys(req.body).length > 0) {
         res.status(400).json({ errors: [{ msg: 'Body must be empty' }] });

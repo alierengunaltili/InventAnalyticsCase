@@ -34,7 +34,6 @@ export class BookRepository {
     }
 
     async getBookById(bookId: number): Promise<Book | null> {
-        // return safeExecute(() => Book.findByPk(bookId));
         try{
             return await Book.findByPk(bookId);
         }
@@ -60,6 +59,7 @@ export class BookRepository {
                     if(book.currentOwnerId !== userId){
                         throw new Error(`Book not borrowed by user ${userId}`);
                     }
+                    //if book has no score, set the score to the score of the user
                     if(book.score === -1){
                         book.score = score;
                         book.ownerCount = 1;

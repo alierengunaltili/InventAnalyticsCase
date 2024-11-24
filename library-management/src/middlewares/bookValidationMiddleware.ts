@@ -1,6 +1,6 @@
 import { body, param } from 'express-validator';
 
-
+//book validation rules for book routes
 export const bookValidationRules = {
     getBook: [
         param('bookId')

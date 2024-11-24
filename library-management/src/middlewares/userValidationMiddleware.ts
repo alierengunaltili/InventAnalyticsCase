@@ -1,5 +1,6 @@
 import { body, param } from 'express-validator';
 
+//user validation rules for user routes
 export const userValidationRules = {
     getUserById: [
         param('userId')
