@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { App } from './app'; 
 import './models/index';
+import { Request, Response } from 'express';
 
 
 // Load environment variables from .env file
@@ -8,8 +9,13 @@ dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
+//create an empty get request to check if the server is running
+
 // Initialize the application
 const appInstance = new App();
+appInstance['app'].get('/', (req: Request, res: Response) => {
+  res.send('Server is running');
+});
 
 // Start the server
 appInstance['app'].listen(PORT, () => {
