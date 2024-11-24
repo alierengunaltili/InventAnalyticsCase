@@ -19,8 +19,8 @@ export class BookService {
         return { id: book.id, name: book.name};    
     }
 
-    async getBook(bookId: number): Promise<SingleBookGetDTO | any> {
-        const book = await this.bookRepository.getBook(bookId);
+    async getBookById(bookId: number): Promise<SingleBookGetDTO | any> {
+        const book = await this.bookRepository.getBookById(bookId);
         if(!book) throw new Error("Book not found");
         return { id: book.id, name: book.name, score: book.score};
     }

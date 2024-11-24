@@ -8,7 +8,6 @@ export class BookRepository {
             return await Book.create({ name });
         }
         catch(error){
-            console.error('Error creating book:', error);
             throw error;
         }
     }
@@ -34,13 +33,12 @@ export class BookRepository {
         return result;
     }
 
-    async getBook(bookId: number): Promise<Book | null> {
+    async getBookById(bookId: number): Promise<Book | null> {
         // return safeExecute(() => Book.findByPk(bookId));
         try{
             return await Book.findByPk(bookId);
         }
         catch(error){
-            console.error('Error getting book:', error);
             throw error;
         }
     }
@@ -50,7 +48,6 @@ export class BookRepository {
             return await Book.findAll();
         }
         catch(error){
-            console.error('Error getting all books:', error);
             throw error;
         }
     }
@@ -82,7 +79,6 @@ export class BookRepository {
                 }
         }
         catch(error){
-            console.error('Error returning book:', error);
             throw error;
         }
     }

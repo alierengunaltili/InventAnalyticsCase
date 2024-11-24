@@ -29,10 +29,10 @@ export class BookController {
         }
     }
 
-    async getBook(req: Request, res: Response): Promise<void> {
+    async getBookById(req: Request, res: Response): Promise<void> {
         try {
             const bookId: number = parseInt(req.params.bookId);
-            const book = await this.bookService.getBook(bookId);
+            const book = await this.bookService.getBookById(bookId);
             res.status(200).json(book);
         } catch (error : any) {
             res.status(500).json({ error: error.message });

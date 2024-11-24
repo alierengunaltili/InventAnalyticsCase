@@ -57,8 +57,8 @@ export class UserService {
       const t = await sequelize.transaction();
       
       try {
+        const book = await this.bookService.getBookById(bookId);
         const userRes = await this.userRepository.returnBook(userId, bookId);
-        if (!userRes) throw new Error("Book not found");
         
         const res = await this.bookService.returnBook(userId, bookId, score);
         if (res === "Book not found") throw new Error("Book not found");

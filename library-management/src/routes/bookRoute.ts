@@ -31,7 +31,7 @@ export class BookRoute extends BaseRoute{
             bookValidationRules.getBook,
             validateRequest,
             this.handleAsync((req: Request, res: Response) =>
-            this.bookController.getBook(req, res)
+            this.bookController.getBookById(req, res)
         ));
     }
 }
