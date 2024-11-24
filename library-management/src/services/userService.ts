@@ -57,15 +57,11 @@ export class UserService {
       const t = await sequelize.transaction();
       
       try {
-        const book = await this.bookService.getBookById(bookId);
         const userRes = await this.userRepository.returnBook(userId, bookId);
-        
         const res = await this.bookService.returnBook(userId, bookId, score);
-        if (res === "Book not found") throw new Error("Book not found");
-        
         await this.postOwnershipService.createPastOwnership(userId, bookId, score);
         
-        // Commit transaction if all operations succeed
+        //commit transaction
         await t.commit();
         return res;
       } catch (error) {

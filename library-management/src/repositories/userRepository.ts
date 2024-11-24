@@ -70,13 +70,7 @@ export class UserRepository {
 
   async returnBook(userId: number, bookId: number): Promise<Book | any> {
     try {
-        const user = await User.findOne({
-          where: { id: userId },
-          include: [
-            { model: Book, as: 'presentBooks' }, // One-to-Many
-            { model: Book, as: 'pastOwnedBooks', through: {attributes: ['userScore']} }, // Many-to-Many
-          ],
-        });
+        const user = await this.getUserWithDetails(userId);
         if(user){
           const bookToReturn = user.presentBooks.find((book: any) => book.id === bookId);
           if (bookToReturn) {
@@ -92,6 +86,22 @@ export class UserRepository {
           throw new Error("User not found");
         }
         return user;
+    }
+    catch(error){
+      throw error;
+    }
+  }
+
+  async getUserWithDetails(userId: number): Promise<User | any> {
+    try{
+      const user = await User.findOne({
+        where: { id: userId },
+        include: [
+          { model: Book, as: 'presentBooks' }, // One-to-Many
+          { model: Book, as: 'pastOwnedBooks', through: {attributes: ['userScore']} }, // Many-to-Many
+        ],
+      });
+      return user;
     }
     catch(error){
       throw error;
