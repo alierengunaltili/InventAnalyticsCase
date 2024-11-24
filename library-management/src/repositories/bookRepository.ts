@@ -1,5 +1,4 @@
 import Book from '@/models/entities/book';
-import { Op } from 'sequelize';
 import sequelize from '@/config/database';
 export class BookRepository {
 
