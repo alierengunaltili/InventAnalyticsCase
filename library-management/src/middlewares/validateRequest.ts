@@ -9,3 +9,12 @@ export const validateRequest = (req: Request, res: Response, next: NextFunction)
   }
   next(); 
 };
+
+
+export const checkEmptyBody = (req: Request, res: Response, next: NextFunction): void => {
+    if (Object.keys(req.body).length > 0) {
+        res.status(400).json({ errors: [{ msg: 'Body must be empty' }] });
+        return;
+    }
+    next();
+};

@@ -3,7 +3,7 @@ import { UserController } from '@/controllers/userController';
 import { BaseRoute } from '@/routes/baseRoute';
 import { Request, Response } from 'express';
 import { userValidationRules } from '@/middlewares/userValidationMiddleware';
-import { validateRequest } from '@/middlewares/validateRequest';
+import { validateRequest, checkEmptyBody } from '@/middlewares/validateRequest';
 
 export class UserRoute extends BaseRoute {
   private userController: UserController;
@@ -25,6 +25,7 @@ export class UserRoute extends BaseRoute {
     );
 
     this.router.get('/', 
+      checkEmptyBody,
       this.handleAsync((req: Request, res: Response) =>
       this.userController.getAllUsers(req, res)
     ));

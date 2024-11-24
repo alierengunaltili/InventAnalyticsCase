@@ -3,7 +3,7 @@ import { BookController } from '@/controllers/bookController';
 import { BaseRoute } from './baseRoute';
 import { Request, Response } from 'express';
 import { bookValidationRules } from '@/middlewares/bookValidationMiddleware';
-import { validateRequest } from '@/middlewares/validateRequest';
+import { validateRequest, checkEmptyBody } from '@/middlewares/validateRequest';
 
 export class BookRoute extends BaseRoute{
     private bookController: BookController;
@@ -22,6 +22,7 @@ export class BookRoute extends BaseRoute{
         ));
 
         this.router.get('/',
+            checkEmptyBody,
             this.handleAsync((req: Request, res: Response) =>
             this.bookController.getAllBooks(req, res)
         ));

@@ -8,7 +8,7 @@ export const userValidationRules = {
             .isInt({ min: 1 })
             .withMessage('User ID must be a positive integer')
             .toInt(),
-        ],
+    ],
     createUser: [
         body('name')
         .trim()
@@ -36,12 +36,4 @@ export const userValidationRules = {
         .isInt({min: 0})
         .withMessage('Score must be a zero or positive integer'),
     ],
-    empty: [
-        body()
-            .isEmpty()
-            .withMessage('Body must be empty'),
-        param()
-            .isEmpty()
-            .withMessage('Param must be empty'),
-    ]
 };
