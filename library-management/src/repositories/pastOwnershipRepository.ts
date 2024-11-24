@@ -1,4 +1,4 @@
-import PastOwnership from "@/models/entities/pastOwnership";
+import PastOwnership from '../models/entities/pastOwnership';
 
 export class PastOwnershipRepository {
 

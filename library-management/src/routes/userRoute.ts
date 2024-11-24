@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import { UserController } from '@/controllers/userController';
-import { BaseRoute } from '@/routes/baseRoute';
+import 'tsconfig-paths/register';
+import { UserController } from '../controllers/userController';
+import { BaseRoute } from './baseRoute';
 import { Request, Response } from 'express';
-import { userValidationRules } from '@/middlewares/userValidationMiddleware';
-import { validateRequest, checkEmptyBody } from '@/middlewares/validateRequest';
+import { userValidationRules } from '../middlewares/userValidationMiddleware';
+import { validateRequest, checkEmptyBody } from '../middlewares/validateRequest';
 
 export class UserRoute extends BaseRoute {
   private userController: UserController;

@@ -1,6 +1,6 @@
 import User from './entities/user';
 import Book from './entities/book';
-import sequelize from '@config/database';
+import sequelize from '../config/database';
 import PastOwnership from './entities/pastOwnership';
 
 const models = {

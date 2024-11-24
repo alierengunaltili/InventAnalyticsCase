@@ -1,5 +1,5 @@
-import { BookGetDTO, SingleBookGetDTO } from '@/models/dtos/bookDTO';
-import { BookRepository } from '@/repositories/bookRepository';
+import { BookGetDTO, SingleBookGetDTO } from '../models/dtos/bookDTO';
+import { BookRepository } from '../repositories/bookRepository';
 
 export class BookService {
     private bookRepository: BookRepository;

@@ -1,7 +1,6 @@
-import User from '@/models/entities/user';
-import sequelize from '@/config/database';
-import Book from '@/models/entities/book';
-import PastOwnership from '@/models/entities/pastOwnership';
+import User from '../models/entities/user';
+import sequelize from '../config/database';
+import Book from '../models/entities/book';
 
 export class UserRepository {
 

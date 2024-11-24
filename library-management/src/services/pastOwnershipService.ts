@@ -1,5 +1,5 @@
-import PastOwnership from "@/models/entities/pastOwnership";
-import { PastOwnershipRepository } from "@/repositories/pastOwnershipRepository";
+import { PastOwnershipRepository } from '../repositories/pastOwnershipRepository';
+import PastOwnership from '../models/entities/pastOwnership';
 
 
 export class PastOwnershipService {

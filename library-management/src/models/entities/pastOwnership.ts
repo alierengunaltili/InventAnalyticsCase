@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
-import sequelize from '@config/database';
+import sequelize from '../../config/database';
 
 class PastOwnership extends Model {
   public userId!: number;

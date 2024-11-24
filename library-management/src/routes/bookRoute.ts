@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import { BookController } from '@/controllers/bookController';
+import 'tsconfig-paths/register';
+import { BookController } from '../controllers/bookController';
 import { BaseRoute } from './baseRoute';
 import { Request, Response } from 'express';
-import { bookValidationRules } from '@/middlewares/bookValidationMiddleware';
-import { validateRequest, checkEmptyBody } from '@/middlewares/validateRequest';
+import { bookValidationRules } from '../middlewares/bookValidationMiddleware';
+import { validateRequest, checkEmptyBody } from '../middlewares/validateRequest';
 
 export class BookRoute extends BaseRoute{
     private bookController: BookController;

@@ -1,6 +1,6 @@
-import Book from '@/models/entities/book';
+import Book from '../models/entities/book';
 import { Op } from 'sequelize';
-import sequelize from '@/config/database';
+import sequelize from '../config/database';
 export class BookRepository {
 
     async createBook(name: string): Promise<Book> {

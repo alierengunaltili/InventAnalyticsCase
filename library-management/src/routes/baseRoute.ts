@@ -1,3 +1,4 @@
+import 'tsconfig-paths/register';
 import { Router, Request, Response, NextFunction } from 'express';
 
 export abstract class BaseRoute {

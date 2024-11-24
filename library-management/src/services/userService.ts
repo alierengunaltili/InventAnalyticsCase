@@ -1,9 +1,9 @@
-import { SingleUserGetDTO, UserGetDTO } from '@/models/dtos/userDTO';
-import { UserRepository } from '@/repositories/userRepository';
-import { BookService } from '@/services/bookService';
-import { BookGetDTO, PresentBookDTO } from '@/models/dtos/bookDTO';
+import { SingleUserGetDTO, UserGetDTO } from '../models/dtos/userDTO';
+import { UserRepository } from '../repositories/userRepository';
+import { BookService } from '../services/bookService';
+import { BookGetDTO, PresentBookDTO } from '../models/dtos/bookDTO';
 import { PastOwnershipService } from './pastOwnershipService';
-import sequelize from '@/config/database';
+import sequelize from '../config/database';
 export class UserService {
   private userRepository: UserRepository;
   private bookService: BookService;

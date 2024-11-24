@@ -1,7 +1,7 @@
+import 'tsconfig-paths/register';
 import dotenv from 'dotenv';
 import { App } from './app'; 
 import './models/index';
-import 'tsconfig-paths/register';
 
 // Load environment variables from .env file
 dotenv.config();
