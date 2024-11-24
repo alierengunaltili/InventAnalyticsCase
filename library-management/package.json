@@ -5,7 +5,6 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "dev": "npx ts-node -r tsconfig-paths/register src/server.ts",
     "migrate": "NODE_ENV=development npx sequelize-cli db:migrate --config config/config.js",
     "test:db": "ts-node src/config/database.ts"
   },
@@ -35,7 +34,6 @@
     "sequelize-cli": "^6.6.2",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.2"
   },
   "engines": {
