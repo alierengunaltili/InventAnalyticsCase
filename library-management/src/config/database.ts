@@ -6,20 +6,21 @@ dotenv.config();
 const sequelize = new Sequelize(process.env.DATABASE_URL!, {
   dialect: 'postgres',
   logging: false, // Set to console.log to see SQL queries
-  dialectOptions:
-    process.env.NODE_ENV === 'production'
-      ? {
-          ssl: {
-            require: true,
-            rejectUnauthorized: false, // Set to true for stricter validation in production
-          },
-        }
-      : {}, // No SSL for non-production environments
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+    client_encoding: 'utf8', // Force specific encoding
+  },
   pool: {
     max: 5,
     min: 0,
     acquire: 30000,
     idle: 10000,
+  },
+  define: {
+    schema: 'invent-analytics-case', // Specify the schema name
   },
 });
 
