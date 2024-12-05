@@ -1,5 +1,7 @@
 import Book from '@/models/entities/book';
 import sequelize from '@/config/database';
+import User from '@/models/entities/user'
+import { Transaction } from 'sequelize';
 export class BookRepository {
 
     async createBook(name: string): Promise<Book> {
@@ -79,6 +81,30 @@ export class BookRepository {
         }
         catch(error){
             throw error;
+        }
+    }
+
+
+    async getBookWithPastOwners(bookId: number): Promise <Book | any> {
+        try {
+            const result = await sequelize.transaction(async (transaction) => {
+                const book = await Book.findOne(
+                    {
+                        where: { id : bookId},
+                        include: [
+                            {
+                                model : User, as: 'pastOwners'
+                            }
+                        ],
+                        transaction: transaction,
+                    }
+                )
+                return book;
+            });
+            return result;
+        }
+        catch(error){
+            throw "Book fetch failed";
         }
     }
 }

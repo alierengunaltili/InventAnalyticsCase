@@ -35,4 +35,10 @@ export class BookService {
         if(!book) return "Book not found";
         return { id: book.id, name: book.name};
     }
+
+    async getBookWithPastOwners(bookId: number): Promise<any | null> {
+        const book = await this.bookRepository.getBookWithPastOwners(bookId);
+        if(!book) return "Book not found";
+        return book;
+    }
 }

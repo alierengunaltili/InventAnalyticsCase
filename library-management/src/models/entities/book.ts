@@ -13,7 +13,6 @@ class Book extends Model {
     this.belongsToMany(models.User, {
       through: models.PastOwnership,
       foreignKey: 'bookId',
-      otherKey: 'userId',
       as: 'pastOwners',
     });
   }

@@ -3,7 +3,7 @@ import { BookController } from '@/controllers/bookController';
 import { BaseRoute } from './baseRoute';
 import { Request, Response } from 'express';
 import { bookValidationRules } from '@/middlewares/bookValidationMiddleware';
-import { validateRequest, checkEmptyBody } from '@/middlewares/validateRequest';
+import { validateRequest, checkEmptyBody, secondMiddleware } from '@/middlewares/validateRequest';
 
 export class BookRoute extends BaseRoute{
     private bookController: BookController;
@@ -23,6 +23,7 @@ export class BookRoute extends BaseRoute{
 
         this.router.get('/',
             checkEmptyBody,
+            secondMiddleware,
             this.handleAsync((req: Request, res: Response) =>
             this.bookController.getAllBooks(req, res)
         ));
@@ -34,5 +35,11 @@ export class BookRoute extends BaseRoute{
             this.handleAsync((req: Request, res: Response) =>
             this.bookController.getBookById(req, res)
         ));
+
+        this.router.get('/:bookId/pastOwners',
+            bookValidationRules.getWithPastOwners,
+            validateRequest,
+            this.handleAsync((req: Request, res: Response) => this.bookController.getBookWithPastOwners(req, res))
+        )
     }
 }

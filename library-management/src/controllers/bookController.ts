@@ -47,4 +47,15 @@ export class BookController {
             res.status(500).json({ error: 'Internal server error' });
         }
     }
+
+    async getBookWithPastOwners(req: Request, res: Response): Promise<void> {
+        try {
+            const bookId: number = parseInt(req.params.bookId)
+            const book = await this.bookService.getBookWithPastOwners(bookId)
+            res.status(200).json(book);
+        }
+        catch(error : any){
+            res.status(500).json({error : error?.message})
+        }
+    }
 }
