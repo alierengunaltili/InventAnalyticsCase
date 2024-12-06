@@ -50,6 +50,13 @@ export class UserRoute extends BaseRoute {
       this.handleAsync((req: Request, res: Response) =>
       this.userController.returnBook(req, res)
     ));
+
+    this.router.post('/:returnerId/return/:bookId/borrowedBy/:borrowerId',
+      userValidationRules.returnAndBorrowBook,
+      validateRequest,
+      this.handleAsync((req: Request, res: Response) => 
+      this.userController.returnBookAndBorrowToAnother(req, res)
+    ));
   }
 }
 

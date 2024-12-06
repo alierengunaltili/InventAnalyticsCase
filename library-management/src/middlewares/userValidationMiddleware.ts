@@ -37,4 +37,18 @@ export const userValidationRules = {
         .isInt({min: 0})
         .withMessage('Score must be a zero or positive integer'),
     ],
+    returnAndBorrowBook: [
+        param('returnerId')
+        .isInt({min : 1})
+        .withMessage('Returner User ID must be an integer'),
+        param('borrowerId')
+        .isInt({min : 1})
+        .withMessage('Borrowed User ID must be an integer'),
+        param('bookId')
+        .isInt({min : 1})
+        .withMessage('Book ID must be an integer'),
+        body('score')
+        .isInt({min : 0})
+        .withMessage('Score must be a zero or positive integer'),
+    ]
 };

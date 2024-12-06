@@ -70,4 +70,20 @@ export class UserService {
         throw error;
       }
   }
+
+
+
+  async returnBookAndBorrowToAnother(returnerId: number, borrowerId: number, bookId: number, score: number): Promise<BookGetDTO | any> {
+    const t = await sequelize.transaction();
+    try {
+      const returnBookResult = await this.returnBook(returnerId, bookId, score);
+      const borrowBookResult = await this.borrowBook(borrowerId, bookId);
+      const result = await this.findUserById(borrowerId);
+      return result;
+    }
+    catch(error : any){
+      await t.rollback();
+      throw error;
+    }
+  }
 }

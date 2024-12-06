@@ -90,4 +90,18 @@ export class UserController {
       }
     }
 
+    async returnBookAndBorrowToAnother(req: Request, res: Response) : Promise<void> {
+      try {
+        const returnerId: number = parseInt(req.params.returnerId);
+        const borrowerId: number = parseInt(req.params.borrowerId);
+        const bookId: number = parseInt(req.params.bookId);
+        const score: number =  parseInt(req.body.score);
+        const result = await this.userService.returnBookAndBorrowToAnother(returnerId, borrowerId, bookId, score);
+        res.status(200).json(result);
+      }
+      catch(error : any){
+        res.status(500).json({error : error.message});
+      }
+    }
+
 }
